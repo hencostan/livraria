@@ -54,6 +54,7 @@ class UserAdmin(BaseUserAdmin):
 
 @admin.register(User)
 class UserAdmin(UserAdmin):
+    pass
 
 @admin.register(Autor)
 class AutorAdmin(admin.ModelAdmin):
@@ -73,10 +74,10 @@ class CategoriaAdmin(admin.ModelAdmin):
 
 @admin.register(Editora)
 class EditoraAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'email', 'cidade')
-    search_fields = ('nome', 'email', 'cidade')
-    list_filter = ('nome', 'email', 'cidade')
-    ordering = ('nome', 'email', 'cidade')
+    list_display = ('nome', 'site')
+    search_fields = ('nome', 'site')
+    list_filter = ('nome', 'site')
+    ordering = ('nome', 'site')
     list_per_page = 10
 
 @admin.register(Livro)
