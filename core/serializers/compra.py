@@ -21,3 +21,4 @@ class CompraSerializer(ModelSerializer):
         fields = "__all__"
         usuario = CharField(source="usuario.email", read_only=True)
         itens = ItensCompraSerializer(many=True, read_only=True)
+        fields = ("id", "usuario", "status", "total", "itens")
