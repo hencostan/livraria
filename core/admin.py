@@ -10,6 +10,10 @@ from core import models
 
 from core.models import Autor, Categoria, Editora, Livro, User
 
+from core.models import Compra
+
+admin.site.register(Compra)
+
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""
