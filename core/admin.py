@@ -10,10 +10,13 @@ from core import models
 
 from core.models import Autor, Categoria, Editora, Livro, User
 
-from core.models import Compra
+from core.models import Compra, ItensCompra
 
 admin.site.register(Compra)
 
+class ItensCompraInline(admin.TabularInline):
+    model = ItensCompra
+    extra = 1 # Quantidade de itens adicionais
 
 class UserAdmin(BaseUserAdmin):
     """Define the admin pages for users."""
@@ -91,3 +94,12 @@ class LivroAdmin(admin.ModelAdmin):
     list_filter = ('editora', 'categoria')
     ordering = ('titulo', 'editora', 'categoria')
     list_per_page = 25
+
+@admin.register(Compra)
+class CompraAdmin(admin.ModelAdmin):
+    list_display = ("usuario", "status")
+    search_fields = ("usuario", "status")
+    list_filter = ("usuario", "status")
+    ordering = ("usuario", "status")
+    list_per_page = 25
+    inlines = [ItensCompraInline]
