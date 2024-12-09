@@ -63,4 +63,9 @@ class Migration(migrations.Migration):
                 ("uploaded_on", models.DateTimeField(auto_now_add=True)),
             ],
         ),
+        migrations.AddField(
+            model_name='image',
+            name='attachment_key',
+            field=models.CharField(max_length=255, blank=True, null=True),
+        ),
     ]
