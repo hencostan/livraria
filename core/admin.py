@@ -8,11 +8,7 @@ from django.utils.translation import gettext_lazy as _
 
 from core import models
 
-from core.models import Autor, Categoria, Editora, Livro, User
-
-from core.models import Compra, ItensCompra
-
-admin.site.register(Compra)
+from core.models import Autor, Categoria, Editora, Livro, User, Compra, ItensCompra
 
 class ItensCompraInline(admin.TabularInline):
     model = ItensCompra
