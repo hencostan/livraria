@@ -2,7 +2,7 @@ from rest_framework.serializers import ModelSerializer
 
 from core.models import Compra, ItensCompra
 
-from rest_framework.serializers import CharField, ModelSerializer, SerializerMethodField, CurrentUserDefault, HiddenField,  ValidationError
+from rest_framework.serializers import CharField, DateTimeField, ModelSerializer, SerializerMethodField, CurrentUserDefault, HiddenField,  ValidationError
 
 class ItensCompraSerializer(ModelSerializer):
     total = SerializerMethodField()
@@ -16,22 +16,14 @@ class ItensCompraSerializer(ModelSerializer):
         depth = 1
 
 class CompraSerializer(ModelSerializer):
-    class Meta:
-        model = Compra
-        fields = "__all__"
         usuario = CharField(source="usuario.email", read_only=True)
+        status = CharField(source="get_status_display", read_only=True)
+        data = DateTimeField(read_only=True)
         itens = ItensCompraSerializer(many=True, read_only=True)
-        fields = ("id", "usuario", "status", "total", "itens")
 
-    def update(self, compra, validated_data):
-        itens = validated_data.pop("itens")
-        if itens:
-            compra.itens.all().delete()
-            for item in itens:
-                item["preco"] = item["livro"].preco  # nova linha
-                ItensCompra.objects.create(compra=compra, **item)
-        compra.save()
-        return super().update(compra, validated_data)
+        class Meta:
+            model = Compra
+            fields = ("id", "usuario", "status", "total", "data", "itens")
 
 class ItensCompraCreateUpdateSerializer(ModelSerializer):
     class Meta:
